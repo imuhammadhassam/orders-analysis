@@ -48,4 +48,24 @@ for row in cursor.fetchall():
 
 
 
+# -----------------------------------
+# 3. GROUP BY + HAVING QUERY
+# -----------------------------------
+
+print("\nCities with average order > 5000:")
+
+cursor.execute("""
+SELECT customers.city,
+AVG(orders.amount) AS avg_order
+FROM customers
+JOIN orders
+ON customers.customer_id = orders.customer_id
+GROUP BY customers.city
+HAVING AVG(orders.amount) > 5000;
+""")
+
+for row in cursor.fetchall():
+    print(row)
+
+    
 conn.close()
